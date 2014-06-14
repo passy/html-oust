@@ -1,4 +1,4 @@
-# oust-html [![Build Status](https://travis-ci.org/passy/oust-html.svg?branch=master)](https://travis-ci.org/passy/oust-html)
+# html-oust [![Build Status](https://travis-ci.org/passy/html-oust.svg?branch=master)](https://travis-ci.org/passy/html-oust)
 
 **WIP** **WIP** **WIP** Make it work, make it composable, make it beautiful.
 **WIP** **WIP** **WIP**

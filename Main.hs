@@ -9,6 +9,13 @@ import Text.XML.HXT.Core
 import Text.HandsomeSoup
 import Data.Tree.NTree.TypeDefs
 
+
+data ExternalResource = ExternalResource {
+    _stylesheets :: [String],
+    _imports :: [String],
+    _scripts :: [String]
+}
+
 main :: IO ()
 main = do
     args <- getArgs

@@ -22,6 +22,10 @@ main = do
     html <- readFile $ head args
     let doc = readString [withParseHTML yes, withWarnings no] html
 
+    putStrLn "== URI ==="
+    uri <- runX $ doc >>> getBaseURI
+    print uri
+
     putStrLn "== Styles =="
     links <- runX $ extractStylesheets doc
     print links

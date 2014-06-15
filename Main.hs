@@ -44,18 +44,18 @@ extractStylesheets ::
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
 extractStylesheets doc =
-    doc >>> css "link" >>> hasAttrValue "rel" (== "stylesheet") >>> getAttrValue "href"
+    doc >>> css "link[rel='stylesheet']" ! "href"
 
 extractScripts ::
     ArrowXml cat =>
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
 extractScripts doc =
-    doc >>> css "script" >>> getAttrValue "src"
+    doc >>> css "script" ! "src"
 
 extractImports ::
     ArrowXml cat =>
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
 extractImports doc =
-    doc >>> css "link" >>> hasAttrValue "rel" (== "import") >>> getAttrValue "href"
+    doc >>> css "link[rel='import']" ! "href"

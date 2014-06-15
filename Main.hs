@@ -23,7 +23,6 @@ main = do
     let doc = readString [withParseHTML yes, withWarnings no] html
 
     putStrLn "== Styles =="
-    -- TODO: This should look like doc >>> stylesheets >>> getAttrValue ...
     links <- runX $ extractStylesheets doc
     print links
 
@@ -35,27 +34,29 @@ main = do
     imports <- runX $ extractImports doc
     print imports
 
--- TODO:
--- All of these extractors should just be arrows. Should be fun refactoring
--- this.
-
 extractStylesheets ::
     ArrowXml cat =>
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
-extractStylesheets doc =
-    doc >>> css "link[rel='stylesheet']" ! "href"
+extractStylesheets = (selectStylesheets ! "href" <<<)
 
 extractScripts ::
     ArrowXml cat =>
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
-extractScripts doc =
-    doc >>> css "script" ! "src"
+extractScripts = (selectScripts ! "src" <<<)
 
 extractImports ::
     ArrowXml cat =>
     cat a (Data.Tree.NTree.TypeDefs.NTree XNode) ->
     cat a String
-extractImports doc =
-    doc >>> css "link[rel='import']" ! "href"
+extractImports = (selectImports ! "href" <<<)
+
+selectImports :: ArrowXml a => a (NTree XNode) (NTree XNode)
+selectImports = css "link[rel='import']"
+
+selectScripts :: ArrowXml a => a (NTree XNode) (NTree XNode)
+selectScripts = css "script"
+
+selectStylesheets :: ArrowXml a => a (NTree XNode) (NTree XNode)
+selectStylesheets = css "link[rel='stylesheet']"
